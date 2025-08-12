@@ -7,6 +7,10 @@ on:
 jobs:
   selenium-job:
     runs-on: ubuntu-latest
+    env:
+      EMAIL: ${{secrets.EMAIL}}
+      PASSWORD: ${{secrets.PASSWORD}}
+      URL: ${{secrets.URL}}
 
     steps:
       - uses: actions/checkout@v3
