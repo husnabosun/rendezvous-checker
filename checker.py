@@ -16,14 +16,13 @@ PASSWORD = os.getenv("PASSWORD")
 URL = os.getenv("URL")
     
 chrome_options = Options()
-chrome_options.headless = True 
+chrome_options.add_argument("--headless=new")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--window-size=1920,1080")
 
-# ChromeDriver'ı otomatik indir ve kullan
-service = Service(ChromeDriverManager().install())
-
-driver = uc.Chrome()
+driver = uc.Chrome(options=chrome_options)
 
 
 def login_sks(driver):          
