@@ -11,11 +11,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 import undetected_chromedriver as uc
 
 
-# Load configuration from config.json
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
-    
-    
 EMAIL = os.getenv["EMAIL"]
 PASSWORD = os.getenv["PASSWORD"]
 URL = os.getenv["URL"]
