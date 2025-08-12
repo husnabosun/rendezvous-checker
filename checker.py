@@ -1,4 +1,5 @@
 import json
+import os
 import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -15,9 +16,9 @@ with open("config.json", "r") as config_file:
     config = json.load(config_file)
     
     
-EMAIL = config["EMAIL"]
-PASSWORD = config["PASSWORD"]
-URL = config["URL"]
+EMAIL = os.getenv["EMAIL"]
+PASSWORD = os.getenv["PASSWORD"]
+URL = os.getenv["URL"]
     
 chrome_options = Options()
 chrome_options.headless = True 
@@ -146,14 +147,6 @@ def login_sks(driver):
         exit()
 
 
-# Load configuration from config.json
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
-
-# Extract configuration values
-sleep_min_seconds = config["sleep_min_seconds"]
-sleep_max_seconds = config["sleep_max_seconds"]
-chrome_driver_path = config["chrome_driver_path"]
 
 
 login_sks(driver)
