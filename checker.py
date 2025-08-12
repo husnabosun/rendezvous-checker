@@ -11,9 +11,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 import undetected_chromedriver as uc
 
 
-EMAIL = os.getenv["EMAIL"]
-PASSWORD = os.getenv["PASSWORD"]
-URL = os.getenv["URL"]
+EMAIL = os.getenv("EMAIL")
+PASSWORD = os.getenv("PASSWORD")
+URL = os.getenv("URL")
     
 chrome_options = Options()
 chrome_options.headless = True 
