@@ -22,7 +22,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--window-size=1920,1080")
 
-driver = uc.Chrome(options=chrome_options)
+driver = uc.Chrome(options=chrome_options, version_main=138)
 
 
 def login_sks(driver):          
