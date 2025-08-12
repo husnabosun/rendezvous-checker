@@ -1,4 +1,5 @@
 import json
+import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -19,6 +20,9 @@ PASSWORD = config["PASSWORD"]
 URL = config["URL"]
     
 chrome_options = Options()
+chrome_options.headless = True 
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
 
 # ChromeDriver'ı otomatik indir ve kullan
 service = Service(ChromeDriverManager().install())
@@ -74,12 +78,61 @@ def login_sks(driver):
         see_dates_btn.click()
         print("Heading to choosing date page")
 
-        todays_date = "11 Ağustos"
+        today_day = datetime.datetime.now().strftime("%d")
+        today_month = datetime.datetime.now().strftime("%B")
+
+        match today_month:
+            case "January":
+                today_month = "Ocak"
+            case "February":
+                today_month = "Şubat"
+            case "March":
+                today_month = "Mart"
+            case "April":
+                today_month = "Nisan"
+            case "May":
+                today_month = "Mayıs"
+            case "June":
+                today_month = "Haziran"
+            case "July":
+                today_month = "Temmuz"
+            case "August":
+                today_month = "Ağustos"
+            case "September":
+                today_month = "Eylül"
+            case "October":
+                today_month = "Ekim"
+            case "November":
+                today_month = "Kasım"
+            case "December":
+                today_month = "Aralık"
+            
+        todays_date = f"{today_day} {today_month}"
+        
+        
         pick_date_btn = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, f"//a[@title='{todays_date}']"))
         )
         pick_date_btn.click()
         print("Appointment date is chosen for today")
+        
+        
+        time_list = ["15:30-16:45","14:00-15:15"]
+        
+        time_buttons = driver.find_elements(By.XPATH, "//label[contains(@class, 'btn') and contains(@class, 'rd-saat')]")
+        time_btn_headers = []
+        for i in time_buttons:
+            span = i.find_element(By.TAG_NAME, "span").text
+            time_btn_headers.append(span)
+        
+        print(time_btn_headers)
+        
+        for i in time_list:
+            if i in time_btn_headers:
+                pick_time_btn = driver.find_element(By.XPATH, f"//label[span[contains(text(),'{i}')]]/input[@type='radio']")
+                pick_time_btn.click()
+                print(f"Appointment is successfully choosed for {todays_date} , {i}")
+                break
 
         submit_btn = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID,"ContentPlaceHolder1_BtnRandevuAl"))
